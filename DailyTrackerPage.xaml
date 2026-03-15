@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HealthKeeper.DailyTrackerPage"
+             BackgroundColor="#F8F9FA">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="20,20,20,100" Spacing="15">
+
+                <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                    <VerticalStackLayout>
+                        <Label Text="Good Evening" FontSize="24" FontAttributes="Bold" TextColor="#111827" />
+                        <Label Text="2/8 Sun" FontSize="14" TextColor="#6B7280" />
+                    </VerticalStackLayout>
+                    <Border Grid.Column="1" Stroke="#D1D5DB" StrokeThickness="1" VerticalOptions="Start" Padding="8,4">
+                        <Label Text="文A 中" FontSize="12" TextColor="#111827" />
+                    </Border>
+                </Grid>
+
+                <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="15">
+                    <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="10">
+                        <Label Text="Today's Progress" FontSize="12" TextColor="#6B7280" />
+                        <ProgressBar Grid.Row="1" Progress="{Binding ProgressValue}" ProgressColor="#111827" VerticalOptions="Center" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ProgressText}" FontSize="14" FontAttributes="Bold" Margin="10,0,0,0" />
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Tasks}" Spacing="15">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White">
+                                <Grid ColumnDefinitions="Auto, *, Auto" Padding="15" ColumnSpacing="15">
+
+                                    <CheckBox IsChecked="{Binding IsCompleted}" Color="#111827" CheckedChanged="OnTaskCheckedChanged" VerticalOptions="Center" />
+
+                                    <Grid Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start">
+                                        <Label Text="{Binding Name}" FontSize="16" TextColor="#111827" VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnEditTaskTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <BoxView Color="#6B7280" HeightRequest="2" HorizontalOptions="Fill" VerticalOptions="Center" 
+                                                 ScaleX="0" AnchorX="0" InputTransparent="True" />
+                                    </Grid>
+
+                                    <Button Grid.Column="2" Text="❌" BackgroundColor="Transparent" TextColor="Red" 
+                                            Padding="0" Clicked="OnDeleteTaskClicked" VerticalOptions="Center" />
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Text="+" 
+                Clicked="OnAddTaskClicked"
+                FontSize="24" 
+                TextColor="White" 
+                BackgroundColor="#0F172A" 
+                CornerRadius="30" 
+                WidthRequest="60" 
+                HeightRequest="60" 
+                HorizontalOptions="End" 
+                VerticalOptions="End" 
+                Margin="20" />
+    </Grid>
+</ContentPage>

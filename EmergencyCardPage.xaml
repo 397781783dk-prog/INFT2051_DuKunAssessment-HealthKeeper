@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HealthKeeper.EmergencyCardPage"
+             BackgroundColor="#F8F9FA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                <VerticalStackLayout>
+                    <Label Text="🚨 Emergency Card" FontSize="24" FontAttributes="Bold" TextColor="#111827" />
+                    <Label Text="Critical Medical Info" FontSize="14" TextColor="#6B7280" />
+                </VerticalStackLayout>
+                <Border Grid.Column="1" Stroke="#D1D5DB" StrokeThickness="1" VerticalOptions="Start" Padding="8,4">
+                    <Label Text="文A 中" FontSize="12" TextColor="#111827" />
+                </Border>
+            </Grid>
+
+            <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="Name" FontSize="12" TextColor="#475569" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry Text="{Binding Name}" Placeholder="Enter your name" BackgroundColor="Transparent" TextColor="#111827" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="Blood Type" FontSize="12" TextColor="#475569" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry Text="{Binding BloodType}" Placeholder="e.g., A+ / O-" BackgroundColor="Transparent" TextColor="#111827" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="Drug Allergies" FontSize="12" TextColor="#475569" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Editor Text="{Binding DrugAllergies}" Placeholder="e.g., Penicillin allergy" BackgroundColor="Transparent" TextColor="#111827" HeightRequest="80" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="Emergency Phone" FontSize="12" TextColor="#475569" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry Text="{Binding EmergencyPhone}" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="#111827" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
