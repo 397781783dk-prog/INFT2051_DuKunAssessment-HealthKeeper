@@ -6,20 +6,20 @@ namespace HealthKeeper;
 
 public class EmergencyCardViewModel : INotifyPropertyChanged
 {
-    // 姓名
+   
     public string Name
     {
-        // Get: 每次界面需要显示名字时，去本地小本本里找，找不到就返回空字符串 ""
+   
         get => Preferences.Default.Get(nameof(Name), "");
         set
         {
-            // Set: 只要用户在界面上打字修改了名字，立刻覆盖写进本地小本本！
+         
             Preferences.Default.Set(nameof(Name), value);
             OnPropertyChanged();
         }
     }
 
-    // 血型
+  
     public string BloodType
     {
         get => Preferences.Default.Get(nameof(BloodType), "");
@@ -30,7 +30,7 @@ public class EmergencyCardViewModel : INotifyPropertyChanged
         }
     }
 
-    // 药物过敏史
+ 
     public string DrugAllergies
     {
         get => Preferences.Default.Get(nameof(DrugAllergies), "");
@@ -41,7 +41,7 @@ public class EmergencyCardViewModel : INotifyPropertyChanged
         }
     }
 
-    // 紧急联系电话 (默认先给个 120)
+    
     public string EmergencyPhone
     {
         get => Preferences.Default.Get(nameof(EmergencyPhone), "120");

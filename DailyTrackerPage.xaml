@@ -18,6 +18,24 @@
                     </Border>
                 </Grid>
 
+                <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="15" Margin="0,0,0,10">
+                    <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Label Text="⏰ Daily Reminder:" VerticalOptions="Center" TextColor="#475569" FontAttributes="Bold" />
+                            <TimePicker x:Name="ReminderTimePicker" Time="20:00:00" TextColor="#111827" FontAttributes="Bold" />
+                        </HorizontalStackLayout>
+
+                        <Button Grid.Column="1" 
+                                Text="Enable" 
+                                Clicked="OnReminderClicked"
+                                BackgroundColor="#E0E7FF" 
+                                TextColor="#4338CA" 
+                                FontAttributes="Bold"
+                                CornerRadius="8" 
+                                Padding="15,5" />
+                    </Grid>
+                </Border>
+
                 <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White" Padding="15">
                     <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="10">
                         <Label Text="Today's Progress" FontSize="12" TextColor="#6B7280" />
@@ -31,23 +49,18 @@
                         <DataTemplate>
                             <Border Stroke="#D1D5DB" StrokeThickness="1" BackgroundColor="White">
                                 <Grid ColumnDefinitions="Auto, *, Auto" Padding="15" ColumnSpacing="15">
-
                                     <CheckBox IsChecked="{Binding IsCompleted}" Color="#111827" CheckedChanged="OnTaskCheckedChanged" VerticalOptions="Center" />
-
                                     <Grid Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start">
                                         <Label Text="{Binding Name}" FontSize="16" TextColor="#111827" VerticalOptions="Center">
                                             <Label.GestureRecognizers>
                                                 <TapGestureRecognizer Tapped="OnEditTaskTapped" />
                                             </Label.GestureRecognizers>
                                         </Label>
-
                                         <BoxView Color="#6B7280" HeightRequest="2" HorizontalOptions="Fill" VerticalOptions="Center" 
                                                  ScaleX="0" AnchorX="0" InputTransparent="True" />
                                     </Grid>
-
                                     <Button Grid.Column="2" Text="❌" BackgroundColor="Transparent" TextColor="Red" 
                                             Padding="0" Clicked="OnDeleteTaskClicked" VerticalOptions="Center" />
-
                                 </Grid>
                             </Border>
                         </DataTemplate>

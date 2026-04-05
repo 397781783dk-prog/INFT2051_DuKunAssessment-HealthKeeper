@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls;
 using System;
+using Microsoft.Maui.ApplicationModel; 
 
 namespace HealthKeeper;
 
@@ -14,7 +15,26 @@ public partial class DailyTrackerPage : ContentPage
         BindingContext = _viewModel;
     }
 
-    // 框状态改变时播放划线动画
+    private async void OnReminderClicked(object sender, EventArgs e)
+    {
+        try
+        {
+          
+            TimeSpan selectedTime = ReminderTimePicker.Time.GetValueOrDefault();
+
+            await _viewModel.ScheduleReminder(selectedTime);
+
+            string timeString = selectedTime.ToString(@"hh\:mm");
+            await DisplayAlert("Settings saved", $"The system will remind you to check in on time at {timeString} every day!", "OK");
+        }
+        catch (Exception ex)
+        {
+       
+            await DisplayAlert("Setup failed", ex.Message, "I see");
+        }
+    }
+
+ 
     private async void OnTaskCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         var checkBox = sender as CheckBox;
@@ -27,25 +47,21 @@ public partial class DailyTrackerPage : ContentPage
 
             if (taskLabel != null && strikeLine != null)
             {
-                if (e.Value) 
+                if (e.Value)
                 {
-                    
                     taskLabel.FadeTo(0.5, 250);
-                    // 划线从左向右长出来
                     await strikeLine.ScaleXTo(1, 250, Easing.CubicOut);
                 }
-                else // 取消勾选
+                else
                 {
-                    // 文字恢复原样
                     taskLabel.FadeTo(1, 250);
-                    // 线条缩回去
                     await strikeLine.ScaleXTo(0, 250, Easing.CubicIn);
                 }
             }
         }
     }
 
-    
+   
     private async void OnAddTaskClicked(object sender, EventArgs e)
     {
         string userInput = await DisplayPromptAsync(
@@ -60,11 +76,9 @@ public partial class DailyTrackerPage : ContentPage
         }
     }
 
-   
     private void OnDeleteTaskClicked(object sender, EventArgs e)
     {
         var button = sender as Button;
-        
         var task = button?.BindingContext as HealthTask;
 
         if (task != null)
@@ -73,24 +87,35 @@ public partial class DailyTrackerPage : ContentPage
         }
     }
 
-    //修改任务名称
-    private async void OnEditTaskTapped(object sender, TappedEventArgs e)
+    
+    private void OnEditTaskTapped(object sender, TappedEventArgs e)
     {
         var label = sender as Label;
         var task = label?.BindingContext as HealthTask;
 
         if (task != null)
         {
-            string newName = await DisplayPromptAsync(
-                "Edit Habit",
-                "Update the name of your habit:",
-                "Save", "Cancel",
-                initialValue: task.Name);
 
-            if (!string.IsNullOrWhiteSpace(newName))
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                task.Name = newName;
-            }
+                try
+                {
+                    string newName = await DisplayPromptAsync(
+                        "Edit Habit",
+                        "Update the name of your habit:",
+                        "Save", "Cancel",
+                        initialValue: task.Name);
+
+                    if (!string.IsNullOrWhiteSpace(newName))
+                    {
+                        task.Name = newName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred in the pop-up window: {ex.Message}");
+                }
+            });
         }
     }
 }
