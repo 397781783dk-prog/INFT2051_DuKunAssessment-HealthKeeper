@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Microsoft.Maui.Storage; // 引入 MAUI 的本地存储魔法
+using Microsoft.Maui.Storage; 
 
 namespace HealthKeeper;
 
